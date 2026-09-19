@@ -1,0 +1,487 @@
+### Register user
+
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Yash Raj",
+  "email": "yash@example.com",
+  "password": "password123"
+}
+
+### Login
+
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "yash@example.com",
+  "password": "password123"
+}
+
+### Protected endpoint - no token
+
+GET http://localhost:8080/api/test/protected
+
+### Protected endpoint - with JWT
+
+GET http://localhost:8080/api/test/protected
+Authorization: <Token>
+
+### Create transaction
+
+POST http://localhost:8080/api/transactions
+Authorization: <Token>
+Content-Type: application/json
+
+{
+  "type": "EXPENSE",
+  "category": "FOOD",
+  "amount": 450.00,
+  "transactionDate": "2026-08-14",
+  "description": "Dinner"
+}
+
+### Get my transactions
+
+GET http://localhost:8080/api/transactions
+Authorization: <Token>
+
+### Create another transaction
+
+POST http://localhost:8080/api/transactions
+Authorization: <Token>
+Content-Type: application/json
+
+{
+  "type": "INCOME",
+  "category": "SALARY",
+  "amount": 25000.00,
+  "transactionDate": "2026-08-14",
+  "description": "Monthly salary"
+}
+
+### Get transaction
+
+GET http://localhost:8080/api/transactions/1
+Authorization: <Token>
+
+### Get non-existent transaction
+
+GET http://localhost:8080/api/transactions/999
+Authorization: <Token>
+
+### Update transaction
+
+PUT http://localhost:8080/api/transactions/3
+Authorization: <Token>
+Content-Type: application/json
+
+{
+  "type": "EXPENSE",
+  "category": "FOOD",
+  "amount": 600.00,
+  "transactionDate": "2026-08-14",
+  "description": "Dinner and dessert"
+}
+
+### Delete transaction
+
+DELETE http://localhost:8080/api/transactions/8
+Authorization: <Token>
+
+### Get deleted transaction
+
+GET http://localhost:8080/api/transactions/
+Authorization: <Token>
+
+### Get all my transactions
+
+GET http://localhost:8080/api/transactions
+Authorization: <Token>
+
+### Expense transactions
+
+GET http://localhost:8080/api/transactions?type=EXPENSE
+Authorization: <Token>
+
+### Food transactions
+
+GET http://localhost:8080/api/transactions?category=FOOD
+Authorization: <Token>
+
+### August transactions
+
+GET http://localhost:8080/api/transactions?startDate=2026-08-01&endDate=2026-08-31
+Authorization: <Token>
+
+### Food expenses in August
+
+GET http://localhost:8080/api/transactions?type=EXPENSE&category=FOOD&startDate=2026-08-01&endDate=2026-08-31
+Authorization: <Token>
+
+### Pagination test
+
+GET http://localhost:8080/api/transactions?page=0&size=2
+Authorization: <Token>
+
+### Create budget
+
+POST http://localhost:8080/api/budgets
+Authorization: <Token>
+Content-Type: application/json
+
+{
+  "category": "FOOD",
+  "amount": 5000.00,
+  "budgetMonth": "2026-08-01"
+}
+
+### Duplicate budget test
+
+POST http://localhost:8080/api/budgets
+Authorization: <Token>
+Content-Type: application/json
+
+{
+  "category": "FOOD",
+  "amount": 5000.00,
+  "budgetMonth": "2026-08-01"
+}
+
+### Different Category budget
+
+POST http://localhost:8080/api/budgets
+Authorization: <Token>
+Content-Type: application/json
+
+{
+  "category": "TRANSPORT",
+  "amount": 3000.00,
+  "budgetMonth": "2026-08-01"
+}
+
+### Invalid amount in existing row
+
+POST http://localhost:8080/api/budgets
+Authorization: <Token>
+Content-Type: application/json
+
+{
+  "category": "FOOD",
+  "amount": 523.00,
+  "budgetMonth": "2026-09-01"
+}
+
+### Get my budgets
+
+GET http://localhost:8080/api/budgets
+Authorization: <Token>
+
+### Register user
+
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Aryan Raj",
+  "email": "aryan@example.com",
+  "password": "password789"
+}
+
+### Login
+
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "aryan@example.com",
+  "password": "password789"
+}
+
+### Get budget
+
+GET http://localhost:8080/api/budgets/1
+Authorization: <Token>
+
+### Try another user's budget
+
+GET http://localhost:8080/api/budgets/1
+Authorization: <Token>
+
+### Update my budget
+
+PUT http://localhost:8080/api/budgets/1
+Authorization: <Token>
+Content-Type: application/json
+
+{
+  "category": "FOOD",
+  "amount": 6000.00,
+  "budgetMonth": "2026-08-01"
+}
+
+### Try updating Yash's budget
+
+PUT http://localhost:8080/api/budgets/1
+Authorization: <Token>
+Content-Type: application/json
+
+{
+  "category": "FOOD",
+  "amount": 100000.00,
+  "budgetMonth": "2026-08-01"
+}
+
+### Create budget
+
+POST http://localhost:8080/api/budgets
+Authorization: <Token>
+Content-Type: application/json
+
+{
+  "category": "BILLS",
+  "amount": 2500.00,
+  "budgetMonth": "2026-08-01"
+}
+
+### Delete my budget
+
+DELETE http://localhost:8080/api/budgets/4
+Authorization: <Token>
+
+### Aryan tries to delete Yash's budget
+
+DELETE http://localhost:8080/api/budgets/1
+Authorization: <Token>
+
+### Utilisation Percentage
+
+GET http://localhost:8080/api/budgets/1/utilization
+Authorization: <Token>
+
+### Update Expense Sum
+
+PUT http://localhost:8080/api/transactions/1
+Authorization: <Token>
+Content-Type: application/json
+
+{
+  "type": "EXPENSE",
+  "category": "FOOD",
+  "amount": 6000.00,
+  "transactionDate": "2026-08-17",
+  "description": "Night Party"
+}
+
+### Monthly budget overview
+
+GET http://localhost:8080/api/budgets/overview?month=2026-08-01
+Authorization: <Token>
+
+### Monthly financial summary
+
+GET http://localhost:8080/api/analytics/monthly-summary?month=2026-09-01
+Authorization: <Token>
+
+### Category-wise spending
+
+GET http://localhost:8080/api/analytics/category-spending?month=2026-09-01
+Authorization: <Token>
+
+### Highest spending category
+
+GET http://localhost:8080/api/analytics/highest-spending?month=2026-09-01
+Authorization: <Token>
+
+### Create Transaction
+
+POST http://localhost:8080/api/transactions
+Authorization: <Token>
+Content-Type: application/json
+
+{
+  "type": "EXPENSE",
+  "category": "FOOD",
+  "amount": 1500.00,
+  "transactionDate": "2026-09-10",
+  "description": "Food Expense"
+}
+
+### Create budget
+
+POST http://localhost:8080/api/budgets
+Authorization: <Token>
+Content-Type: application/json
+
+{
+  "category": "FOOD",
+  "amount": 1500.00,
+  "budgetMonth": "2026-09-01"
+}
+
+### Delete my budget
+
+DELETE http://localhost:8080/api/budgets/3
+Authorization: <Token>
+
+### Monthly comparison
+
+GET http://localhost:8080/api/analytics/monthly-comparison?month=2026-09-01
+Authorization: <Token>
+
+### Analytics Edge Case Testing
+
+GET http://localhost:8080/api/analytics/monthly-summary?month=2027-01-01
+Authorization: <Token>
+
+### Edge Test Case-2
+
+GET http://localhost:8080/api/analytics/category-spending?month=2027-01-01
+Authorization: <Token>
+
+### Edge Test Case-3
+
+GET http://localhost:8080/api/analytics/highest-spending?month=2027-01-01
+Authorization: <Token>
+
+### Edge Test Case-4
+
+GET http://localhost:8080/api/analytics/monthly-summary?month=not-a-date
+Authorization: <Token>
+
+### Invalid transaction amount
+
+POST http://localhost:8080/api/transactions
+Authorization: <Token>
+Content-Type: application/json
+
+{
+  "type": "EXPENSE",
+  "category": "FOOD",
+  "amount": 0,
+  "transactionDate": "2026-08-15",
+  "description": "Invalid amount test"
+}
+
+### Invalid or No Category
+POST http://localhost:8080/api/transactions
+Authorization: <Token>
+Content-Type: application/json
+
+{
+"type": "EXPENSE",
+"amount": 500,
+"transactionDate": "2026-08-15",
+"description": "Missing category"
+}
+
+### Inavalid Email
+
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+"name": "Test User",
+"email": "not-an-email",
+"password": "password123"
+}
+
+### Invalid or short password
+
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+"name": "Test User",
+"email": "test@example.com",
+"password": "123"
+}
+
+### Validation Test - Invalid Email
+
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Test User",
+  "email": "not-an-email",
+  "password": "password123"
+}
+
+### Validation Test - Invalid Email
+
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Test User",
+  "email": "not-an-email",
+  "password": "password123"
+}
+
+### Exception Test
+
+GET http://localhost:8080/api/transactions/99999
+Authorization: <Token>
+
+### Exception Test-2
+
+POST http://localhost:8080/api/budgets
+Authorization: <Token>
+Content-Type: application/json
+
+{
+  "category": "FOOD",
+  "amount": 3000.00,
+  "budgetMonth": "2026-09-01"
+}
+
+### Exception Test-3
+
+POST http://localhost:8080/api/budgets
+Authorization: <Token>
+Content-Type: application/json
+
+{
+  "category": "FOOD",
+  "amount": 3000.00,
+  "budgetMonth": "2026-09-01"
+}
+
+### Exception Test-4
+
+GET http://localhost:8080/api/transactions/99999
+Authorization: <Token>
+
+### Transaction Validation Testing
+
+POST http://localhost:8080/api/transactions
+Authorization: <Token>
+Content-Type: application/json
+
+{
+  "type": "EXPENSE",
+  "category": "BILLS",
+  "amount": 500.00,
+  "transactionDate": "2026-08-15",
+  "description": "Validation Test"
+}
+
+### Budget Validation Test
+
+POST http://localhost:8080/api/budgets
+Authorization: <Token>
+Content-Type: application/json
+
+{
+  "category": "FOOD",
+  "amount": -100,
+  "budgetMonth": "2026-10-01"
+}
+
+### Test
+
+GET http://localhost:8080/api/transactions/2
+Authorization: <Token>
+
